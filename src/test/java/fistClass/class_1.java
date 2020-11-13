@@ -44,6 +44,8 @@ public class class_1 {
         WebElement clickIn = driveN.findElement(logInClick);
         clickIn.click();
 
+        driveN.close();
+
     }
 
 }
