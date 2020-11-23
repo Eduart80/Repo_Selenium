@@ -32,7 +32,7 @@ public class homeWork_12 {
         System.setProperty("webdriver.chrome.driver","./chrome/chromedriver.exe");
         WebDriver driveN = new ChromeDriver();
         driveN.get("https://darksky.net/");
-        driveN.findElement(By.xpath("//input[@type='text']")).clear();          //  for practice porpoise i selected North Pole
+        driveN.findElement(By.xpath("//input[@type='text']")).clear();          //  for practice purpose i selected North Pole
         driveN.findElement(By.xpath("//input[@type='text']")).sendKeys("154–190 Snowman Ln, North Pole, AK");
         driveN.findElement(By.xpath("//a[@class='searchButton']")).submit();   //154–190 Snowman Ln, North Pole, AK
         try{
@@ -70,6 +70,7 @@ public class homeWork_12 {
         }else {
             System.out.println("Error in temperature input");
         }
+        driveN.close();
     }
     @Test
     public void SecondHW() throws ParseException {
@@ -97,6 +98,7 @@ public class homeWork_12 {
         String getDateText2 = findDate2.getText();
         WebElement findDate3 = driveN.findElement(By.xpath("//time[contains(text(),'March 31, 2020')]"));
         String getDateText3 = findDate3.getText();
+
         SimpleDateFormat dateCreate = new SimpleDateFormat("MMMM dd,yyyy");
             List<Date> getInLine = new ArrayList<>();
                 getInLine.add( dateCreate.parse(getDateText1));
@@ -127,7 +129,7 @@ public class homeWork_12 {
         driveN.get("https://darksky.net/");
 
         try{
-            Thread.sleep(2000); // wait 5 sec
+            Thread.sleep(2000); // wait 2 sec
         }catch (TestException e){
             e.getStackTrace();
         }
@@ -142,6 +144,29 @@ public class homeWork_12 {
         //Fahrenheit to Celsius
         int tCelsius = (getFeels -32 ) * 5/9;
         System.out.println(getFeels+" Fahrenheit is equal to "+ tCelsius + " degree celsius.");
+
+        try{
+            Thread.sleep(2000); // wait 2 sec
+        }catch (TestException e){
+            e.getStackTrace();
+        }
+        //open dropDown
+        driveN.findElement(By.xpath("//body/div[@id='header']/div[1]/div[1]/div[2]")).click();
+            //select C degree
+        WebElement compareIt = driveN.findElement(By.xpath("//body[1]/div[1]/div[1]/div[1]/div[3]/div[1]/ul[1]/li[2]"));
+        compareIt.click();
+
+        //collect new data from website
+        WebElement gatheringData2 = driveN.findElement(By.xpath("//span[@class='feels-like-text']"));
+        String getString2 = gatheringData2.getText();
+        String[] getIndex2 = getString2.split("");
+        int findLength2 = getIndex2.length;
+        String getTex2 = getString2.substring(0, findLength2-1);
+        int getFeels2 = Integer.parseInt(getTex2);
+
+        //compare
+        Assert.assertEquals(tCelsius,getFeels2,"Not equals ..");
+
         driveN.close();
     }
 
