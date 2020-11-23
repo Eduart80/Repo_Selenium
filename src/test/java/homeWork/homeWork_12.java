@@ -4,8 +4,13 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
+import org.testng.Assert;
 import org.testng.TestException;
 import org.testng.annotations.Test;
+
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.*;
 
 public class homeWork_12 {
     /**
@@ -67,16 +72,78 @@ public class homeWork_12 {
         }
     }
     @Test
-    public void SecondHW(){
+    public void SecondHW() throws ParseException {
         /**
          * Testcase 2: Verify the dates on the Blog Page appears in reverse chronological order
+         * driveN.findElement(By.xpath("//time[contains(text(),'August 1, 2020')]"));
+         * //time[contains(text(),'March 31, 2020')]
+         * //time[contains(text(),'July 1, 2020')]
+         *
          */
+        Date newDate = new Date();
+        System.setProperty("webdriver.chrome.driver","./chrome/chromedriver.exe");
+        WebDriver driveN = new ChromeDriver();
+        driveN.get("https://blog.darksky.net/");
+
+        try{
+            Thread.sleep(2000); // wait 2 sec
+        }catch (TestException | InterruptedException e){
+            e.getStackTrace();
+        }
+
+        WebElement findDate1 = driveN.findElement(By.xpath("//time[contains(text(),'August 1, 2020')]"));
+        String getDateText1 = findDate1.getText();
+        WebElement findDate2 = driveN.findElement(By.xpath("//time[contains(text(),'July 1, 2020')]"));
+        String getDateText2 = findDate2.getText();
+        WebElement findDate3 = driveN.findElement(By.xpath("//time[contains(text(),'March 31, 2020')]"));
+        String getDateText3 = findDate3.getText();
+        SimpleDateFormat dateCreate = new SimpleDateFormat("MMMM dd,yyyy");
+            List<Date> getInLine = new ArrayList<>();
+                getInLine.add( dateCreate.parse(getDateText1));
+                getInLine.add( dateCreate.parse(getDateText2));
+                getInLine.add( dateCreate.parse(getDateText3));
+            Collections.sort(getInLine);
+        System.out.println(getDateText1+", "+getDateText2+", "+getDateText3);
+        System.out.println(getInLine);
+
+        Assert.assertTrue( dateCreate.parse(getDateText1).after(dateCreate.parse(getDateText2)), "August appear before July");
+        Assert.assertTrue(dateCreate.parse(getDateText2).after(dateCreate.parse(getDateText3)), "July appear before March");
+        driveN.close();
     }
     @Test
-    public void thirdHW(){
+    public void thirdHW() throws InterruptedException {
         /**
-         * Testcase 3: Verify the temperature value converts as expected as the the unit selected
+         * Testcase 3: Verify the temperature value converts as expected as the unit selected
+         * found webElement
+         * get the text
+         * split it by ""
+         * get length-1
+         * string to int
+         * convert value from F to C
+         *
          */
+        System.setProperty("webdriver.chrome.driver","./chrome/chromedriver.exe");
+        WebDriver driveN = new ChromeDriver();
+        driveN.get("https://darksky.net/");
+
+        try{
+            Thread.sleep(2000); // wait 5 sec
+        }catch (TestException e){
+            e.getStackTrace();
+        }
+
+        WebElement gatheringData = driveN.findElement(By.xpath("//span[@class='feels-like-text']"));
+        //WebElement gatheringData = driveN.findElement(By.xpath("//span[@class='summary swap']"));
+        String getString = gatheringData.getText();
+        String[] getIndex = getString.split("");
+        int findLength = getIndex.length;
+        String getTex = getString.substring(0, findLength-1);
+        int getFeels = Integer.parseInt(getTex);
+        //Fahrenheit to Celsius
+        int tCelsius = (getFeels -32 ) * 5/9;
+        System.out.println(getFeels+" Fahrenheit is equal to "+ tCelsius + " degree celsius.");
+        driveN.close();
     }
+
 }
 
