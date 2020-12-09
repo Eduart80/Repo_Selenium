@@ -11,6 +11,7 @@ import org.testng.annotations.Test;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.concurrent.TimeUnit;
 
 public class homeWork_14 {
     @Test
@@ -114,12 +115,29 @@ public class homeWork_14 {
         String age2 = addAge2.getText();
         //submit
         driveN.findElement(By.xpath("//button[@type='submit']")).click();
+        //Next page
+        driveN.manage().timeouts().implicitlyWait(20, TimeUnit.SECONDS);
+        WebElement isRoom = driveN.findElement(By.xpath("//select[@name='q-rooms']//*[@selected='selected']"));
+        String checkRoom = isRoom.getText();
+        System.out.println(checkRoom);
+        WebElement isAdult = driveN.findElement(By.xpath("//select[@name='q-room-0-adults']//*[@selected='selected']"));
+        String checkAdult = isAdult.getText();
+        System.out.println(checkAdult);
+        WebElement isChild = driveN.findElement(By.xpath("//select[@name='q-room-0-children']//*[@selected='selected']"));
+        String checkChild = isChild.getText();
+        System.out.println(checkChild);
+        WebElement isAge1 = driveN.findElement(By.xpath("//select[@name='q-room-0-child-0-age']//*[@selected='selected']"));
+        String checkAge1 = isAge1.getText();
+        System.out.println(checkAge1);
+        WebElement isAge2 = driveN.findElement(By.xpath("//select[@name='q-room-0-child-1-age']//*[@selected='selected']"));
+        String checkAge2 = isAge2.getText();
+        System.out.println(checkAge2);
 
-        Assert.assertEquals(room,"1","Not as expected.");
-        Assert.assertEquals(adult,"1","Not as expected.");
-        Assert.assertEquals(chld1,"2","Not as expected.");
-        Assert.assertEquals(age1,"1","Not as expected.");
-        Assert.assertEquals(age2,"2","Not as expected.");
+        Assert.assertEquals(room,checkRoom,"Not as expected.");
+        Assert.assertEquals(adult,checkAdult,"Not as expected.");
+        Assert.assertEquals(chld1,checkChild,"Not as expected.");
+        Assert.assertEquals(age1,checkAge1,"Not as expected.");
+        Assert.assertEquals(age2,checkAge2,"Not as expected.");
 
     }
 }
