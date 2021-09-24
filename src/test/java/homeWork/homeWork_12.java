@@ -135,8 +135,10 @@ public class homeWork_12 {
         }
 
         WebElement gatheringData = driveN.findElement(By.xpath("//span[@class='feels-like-text']"));
-        //WebElement gatheringData = driveN.findElement(By.xpath("//span[@class='summary swap']"));
+        //WebElement gatheringData1 = driveN.findElement(By.xpath("//span[@class='summary swap']"));
         String getString = gatheringData.getText();
+//        String getString1 = gatheringData1.getText();
+//        System.out.println(Arrays.toString(getString1.split("°")));
         String[] getIndex = getString.split("");
         int findLength = getIndex.length;
         String getTex = getString.substring(0, findLength-1);

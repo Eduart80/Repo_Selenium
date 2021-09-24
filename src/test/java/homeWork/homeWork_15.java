@@ -70,3 +70,25 @@ public class homeWork_15 {
 
     }
 }
+/**
+ * Verify user selection from autosuggestion appears on search page
+ * i am on hotel landing page
+ * i enter 'york' in search
+ * i select 'Lake George, New York, Unite' from autosuggestion
+ * i click search button
+ * i verify search header contains text selected from autosuggestion
+ * i verify text under 'Destination, property, or landmark is the same text selected from autosuggestion
+ */
+/**
+ * Verify the cheapest hotel is less than $100
+ * i am on hotel landing page
+ * i enter 'york' in search
+ * i select 'Lake George, New York, Unite' from autosuggestion
+ * i select 2 in children dropdown
+ * i enter children 1 age as "4"
+ * i enter children 2 age as "<1"
+ * i click search button
+ * i sort the result by "Price (Low to high)"
+ * i print the lowest price and hotel name in the console
+ * i verify the lowest price id less than $100
+ */
